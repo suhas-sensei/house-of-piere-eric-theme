@@ -1,0 +1,61 @@
+<section class="journal" data-section-id="{{ section.id }}">
+  <header class="journal__head">
+    <h2>{{ section.settings.title }}</h2>
+    <a class="ulink eyebrow" href="{{ section.settings.cta_url | default: '/blogs/journal' }}">{{ section.settings.cta_label }} →</a>
+  </header>
+  <div class="journal__grid">
+    {%- assign blog = blogs[section.settings.blog] -%}
+    {%- if blog.articles.size > 0 -%}
+      {%- for article in blog.articles limit: 2 -%}
+        <a class="entry" href="{{ article.url }}">
+          {%- if article.image -%}
+            <div class="entry__media"><img src="{{ article.image | image_url: width: 1400 }}" alt="" loading="lazy"></div>
+          {%- endif -%}
+          <span class="eyebrow">{{ article.published_at | date: '%d %B %Y' }}</span>
+          <h3 class="entry__title">{{ article.title }}</h3>
+          <p class="entry__excerpt">{{ article.excerpt_or_content | strip_html | truncate: 180 }}</p>
+        </a>
+      {%- endfor -%}
+    {%- else -%}
+      {%- for block in section.blocks -%}
+        <a class="entry" href="{{ block.settings.url | default: '#' }}">
+          {%- if block.settings.image != blank -%}
+            <div class="entry__media"><img src="{{ block.settings.image | image_url: width: 1400 }}" alt="" loading="lazy"></div>
+          {%- endif -%}
+          <span class="eyebrow">{{ block.settings.date }}</span>
+          <h3 class="entry__title">{{ block.settings.title }}</h3>
+          <p class="entry__excerpt">{{ block.settings.excerpt }}</p>
+        </a>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Journal",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "From the journal" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "All entries" },
+    { "type": "url", "id": "cta_url", "label": "CTA url" },
+    { "type": "blog", "id": "blog", "label": "Source blog" }
+  ],
+  "blocks": [
+    {
+      "type": "entry",
+      "name": "Entry",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "date", "label": "Date", "default": "08 May 2026" },
+        { "type": "text", "id": "title", "label": "Title", "default": "On the morning after rain in Pondicherry" },
+        { "type": "textarea", "id": "excerpt", "label": "Excerpt", "default": "How a single afternoon by the Bay of Bengal became the brief for our spring formula." },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Journal", "blocks": [{"type":"entry"},{"type":"entry"}] }
+  ]
+}
+{% endschema %}

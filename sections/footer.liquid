@@ -1,0 +1,40 @@
+<footer class="site-footer" data-section-id="{{ section.id }}">
+  <div class="site-footer__top">
+    <div class="site-footer__brand">{{ settings.brand_wordmark }}<br><span class="serif-italic" style="font-size:.55em;opacity:.7;">A house of fragrance.</span></div>
+    <div class="site-footer__col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="/collections/all">All fragrances</a></li>
+        <li><a href="/collections/discovery">Discovery sets</a></li>
+        <li><a href="/collections/gifts">Gifts</a></li>
+        <li><a href="/pages/refill">Refills</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>House</h4>
+      <ul>
+        <li><a href="/pages/about">Our story</a></li>
+        <li><a href="/pages/journal">Journal</a></li>
+        <li><a href="/pages/perfumers">Perfumers</a></li>
+        <li><a href="/pages/press">Press</a></li>
+      </ul>
+    </div>
+    <div class="site-footer__col">
+      <h4>Care</h4>
+      <ul>
+        <li><a href="/pages/contact">Contact</a></li>
+        <li><a href="/pages/shipping">Shipping</a></li>
+        <li><a href="/pages/returns">Returns</a></li>
+        <li><a href="/policies/privacy-policy">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">
+    <span>© {{ 'now' | date: '%Y' }} {{ settings.brand_wordmark }}</span>
+    <span>Composed in Gurgaon · Dispatched worldwide</span>
+  </div>
+</footer>
+
+{% schema %}
+{ "name": "Footer", "settings": [] }
+{% endschema %}

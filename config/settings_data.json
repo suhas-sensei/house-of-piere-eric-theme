@@ -1,0 +1,17 @@
+{
+  "current": {
+    "brand_wordmark": "House of Piere Eric",
+    "brand_short": "PE",
+    "color_bg": "#F2E9DE",
+    "color_ink": "#000000",
+    "color_walnut": "#DDC9C0",
+    "color_sand": "#9E9388",
+    "color_rule": "#000000"
+  },
+  "presets": {
+    "Default": {
+      "brand_wordmark": "House of Piere Eric",
+      "brand_short": "PE"
+    }
+  }
+}

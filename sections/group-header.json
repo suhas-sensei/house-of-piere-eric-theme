@@ -1,0 +1,9 @@
+{
+  "type": "header",
+  "name": "Header group",
+  "sections": {
+    "announcement": { "type": "announcement-bar", "settings": { "message": "Complimentary discovery sample with every order — dispatched from Gurgaon" } },
+    "header": { "type": "header" }
+  },
+  "order": ["announcement", "header"]
+}

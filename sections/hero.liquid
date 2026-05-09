@@ -1,0 +1,33 @@
+<section class="hero hero--media-only" data-section-id="{{ section.id }}">
+  <div class="hero__media">
+    {%- if section.settings.video_asset != blank -%}
+      <video
+        src="{{ section.settings.video_asset | asset_url }}"
+        autoplay muted loop playsinline preload="auto"
+        {% if section.settings.image != blank %}poster="{{ section.settings.image | image_url: width: 1600 }}"{% endif %}
+      ></video>
+    {%- elsif section.settings.video_url != blank -%}
+      <video
+        src="{{ section.settings.video_url }}"
+        autoplay muted loop playsinline preload="auto"
+        {% if section.settings.image != blank %}poster="{{ section.settings.image | image_url: width: 1600 }}"{% endif %}
+      ></video>
+    {%- elsif section.settings.image != blank -%}
+      <img src="{{ section.settings.image | image_url: width: 2400 }}" alt="{{ section.settings.image.alt | escape }}" loading="eager">
+    {%- else -%}
+      <div style="background:linear-gradient(160deg,#bfa9a0,#54372a);width:100%;height:100%;"></div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "text", "id": "video_asset", "label": "Video asset filename", "info": "Filename of an mp4 in /assets (e.g. hero-video.mp4)" },
+    { "type": "url", "id": "video_url", "label": "External video URL (mp4)" },
+    { "type": "image_picker", "id": "image", "label": "Poster / fallback image" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

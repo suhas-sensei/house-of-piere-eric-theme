@@ -1,0 +1,128 @@
+<header class="site-header" data-section-id="{{ section.id }}">
+  <div class="site-header__row">
+    <nav class="site-header__nav" aria-label="Primary">
+      {%- for link in linklists[section.settings.menu].links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- else -%}
+        <a href="/collections/all">Fragrances</a>
+        <a href="/collections/discovery">Discovery</a>
+        <a href="/pages/journal">Journal</a>
+        <a href="/pages/about">House</a>
+      {%- endfor -%}
+    </nav>
+
+    <button class="menu-toggle" aria-controls="MobileMenu" aria-expanded="false" data-drawer-toggle="MobileMenu">
+      {% render 'icons', icon: 'menu' %}<span>Menu</span>
+    </button>
+
+    <a class="site-header__wordmark" href="/">{{ settings.brand_wordmark | default: shop.name }}</a>
+
+    <div class="site-header__utility">
+      <button data-drawer-toggle="SearchDrawer" aria-controls="SearchDrawer">
+        {% render 'icons', icon: 'search' %}<span class="label">Search</span>
+      </button>
+      <a href="{{ routes.account_url }}">
+        {% render 'icons', icon: 'account' %}<span class="label">Account</span>
+      </a>
+      <button data-drawer-toggle="CartDrawer" aria-controls="CartDrawer">
+        {% render 'icons', icon: 'bag' %}<span class="label">Bag</span>&nbsp;<span data-cart-count>({{ cart.item_count }})</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+{%- comment -%} Mobile menu drawer {%- endcomment -%}
+<div class="drawer drawer--left" id="MobileMenu" aria-hidden="true">
+  <div class="drawer__scrim" data-drawer-close></div>
+  <div class="drawer__panel">
+    <div class="drawer__head">
+      <span class="smallcaps">Menu</span>
+      <button data-drawer-close aria-label="Close menu">{% render 'icons', icon: 'close' %}</button>
+    </div>
+    <div class="drawer__body">
+      <ul class="menu-list">
+        {%- for link in linklists[section.settings.menu].links -%}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {%- else -%}
+          <li><a href="/collections/all">Fragrances</a></li>
+          <li><a href="/collections/discovery">Discovery</a></li>
+          <li><a href="/pages/journal">Journal</a></li>
+          <li><a href="/pages/about">House</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+    <div class="drawer__foot">
+      <a class="ulink eyebrow" href="{{ routes.account_url }}">Sign in</a>
+    </div>
+  </div>
+</div>
+
+{%- comment -%} Search drawer {%- endcomment -%}
+<div class="drawer" id="SearchDrawer" aria-hidden="true">
+  <div class="drawer__scrim" data-drawer-close></div>
+  <div class="drawer__panel">
+    <div class="drawer__head">
+      <span class="smallcaps">Search the index</span>
+      <button data-drawer-close aria-label="Close search">{% render 'icons', icon: 'close' %}</button>
+    </div>
+    <div class="drawer__body">
+      <form action="{{ routes.search_url }}" method="get" role="search">
+        <input type="search" name="q" placeholder="A scent, a feeling, a city..." aria-label="Search" autofocus
+               style="width:100%;border:0;border-bottom:1px solid currentColor;background:transparent;padding:14px 0;font-size:28px;letter-spacing:-.02em;font-family:inherit;outline:0;">
+      </form>
+    </div>
+  </div>
+</div>
+
+{%- comment -%} Cart drawer {%- endcomment -%}
+<div class="drawer" id="CartDrawer" aria-hidden="true">
+  <div class="drawer__scrim" data-drawer-close></div>
+  <div class="drawer__panel">
+    <div class="drawer__head">
+      <span class="smallcaps">Bag — <span data-cart-count>{{ cart.item_count }}</span> items</span>
+      <button data-drawer-close aria-label="Close bag">{% render 'icons', icon: 'close' %}</button>
+    </div>
+    <div class="drawer__body">
+      {%- if cart.item_count > 0 -%}
+        <ul class="cart-list">
+          {%- for item in cart.items -%}
+            <li class="cart-item">
+              <a href="{{ item.url }}">
+                {%- if item.image -%}<img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.product.title | escape }}" loading="lazy">{%- endif -%}
+              </a>
+              <div>
+                <a href="{{ item.url }}" class="cart-item__title">{{ item.product.title }}</a>
+                {%- if item.variant.title != 'Default Title' -%}
+                  <div class="cart-item__sub">{{ item.variant.title }}</div>
+                {%- endif -%}
+                <div class="cart-item__row">
+                  <span>{{ item.quantity }} × {{ item.original_price | money }}</span>
+                  <a class="cart-item__remove" href="{{ item.url_to_remove }}">Remove</a>
+                </div>
+              </div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      {%- else -%}
+        <p class="serif-italic" style="font-size:22px;opacity:.7;margin-top:24px;">{{ 'general.cart.empty' | t }}</p>
+      {%- endif -%}
+    </div>
+    {%- if cart.item_count > 0 -%}
+      <div class="drawer__foot">
+        <div class="cart-foot">
+          <div class="cart-foot__row"><span>{{ 'general.cart.subtotal' | t }}</span><strong>{{ cart.total_price | money_with_currency }}</strong></div>
+          <a href="/checkout" class="btn btn--solid btn--full">{{ 'general.cart.checkout' | t }}</a>
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Primary menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

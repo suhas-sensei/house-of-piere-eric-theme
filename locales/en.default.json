@@ -1,0 +1,41 @@
+{
+  "general": {
+    "search": { "title": "Search", "placeholder": "Search the index" },
+    "newsletter": {
+      "label": "Subscribe to dispatches",
+      "placeholder": "Email address",
+      "submit": "Subscribe",
+      "success": "Thank you. You are now on the list."
+    },
+    "cart": {
+      "title": "Bag",
+      "empty": "Your bag is currently empty.",
+      "subtotal": "Subtotal",
+      "checkout": "Proceed to checkout",
+      "continue": "Continue browsing",
+      "remove": "Remove"
+    },
+    "404": { "title": "This page is unwritten.", "subtitle": "Return to the index.", "cta": "Back to the front page" }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to bag",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "quantity": "Quantity",
+      "notes_top": "Top notes",
+      "notes_heart": "Heart notes",
+      "notes_base": "Base notes",
+      "perfumer": "Perfumer",
+      "concentration": "Concentration",
+      "format": "Format",
+      "year": "Year"
+    }
+  },
+  "collections": {
+    "general": { "no_matches": "Nothing answers that name." }
+  },
+  "blogs": {
+    "article": { "read_more": "Continue reading", "by_author": "By" }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "video_asset": "hero-video.mp4"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "settings": {
+        "items": "Petitgrain, Neroli, Iris, Vetiver, Sandalwood, Cardamom, Tonka, Frankincense, Saffron, Oud, Rose Otto, Bergamot"
+      }
+    },
+    "apothecary": {
+      "type": "apothecary-index",
+      "settings": {
+        "title": "The Index",
+        "intro": "Each composition catalogued by formula number. Hover to look closer.",
+        "collection": "all-fragrances",
+        "limit": 8
+      },
+      "blocks": {
+        "r1": { "type": "row", "settings": { "name": "Endless White", "subtitle": "Eau de Parfum", "notes": "Petitgrain · Neroli · Linen", "price": "₹ 8,400" } },
+        "r2": { "type": "row", "settings": { "name": "Courtyard Cardamom", "subtitle": "Eau de Parfum", "notes": "Cardamom · Cedar · Tobacco", "price": "₹ 8,800" } },
+        "r3": { "type": "row", "settings": { "name": "Bay Light", "subtitle": "Eau de Parfum", "notes": "Bergamot · Salt · Iris", "price": "₹ 7,900" } },
+        "r4": { "type": "row", "settings": { "name": "First Frost in Manali", "subtitle": "Eau de Parfum", "notes": "Pine · Frankincense · Birch", "price": "₹ 9,200" } },
+        "r5": { "type": "row", "settings": { "name": "Library at Dusk", "subtitle": "Eau de Parfum", "notes": "Tonka · Vetiver · Leather", "price": "₹ 9,600" } },
+        "r6": { "type": "row", "settings": { "name": "Saffron Hours", "subtitle": "Extrait", "notes": "Saffron · Oud · Rose Otto", "price": "₹ 12,400" } }
+      },
+      "block_order": ["r1","r2","r3","r4","r5","r6"]
+    },
+    "story-1": {
+      "type": "editorial-story",
+      "settings": {
+        "eyebrow": "Origins",
+        "title": "From a single distillation in Kannauj.",
+        "body": "Our compositions begin in north India — at copper stills that have run for two centuries, in fields where the rose is harvested before the third hour. We work without compromise: with attars, with absolutes, with the patience that real fragrance demands.",
+        "cta_label": "Meet the perfumers",
+        "cta_url": "/pages/perfumers",
+        "reverse": false
+      }
+    },
+    "featured": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "Spring composition",
+        "title": "New formulas",
+        "intro": "Three new entries to the index — each composed in small batches and signed by the perfumer.",
+        "collection": "new-launches",
+        "layout": "three",
+        "limit": 3
+      },
+      "blocks": {
+        "c1": { "type": "card", "settings": { "name": "Endless White", "notes": "petitgrain · neroli · sun-warmed linen", "price": "₹ 8,400", "badge": "New" } },
+        "c2": { "type": "card", "settings": { "name": "Courtyard Cardamom", "notes": "cardamom · cedar · tobacco leaf", "price": "₹ 8,800", "badge": "New" } },
+        "c3": { "type": "card", "settings": { "name": "Bay Light", "notes": "bergamot · sea salt · iris root", "price": "₹ 7,900", "badge": "New" } }
+      },
+      "block_order": ["c1","c2","c3"]
+    },
+    "notes": {
+      "type": "notes-library",
+      "settings": {
+        "title": "By note",
+        "cta_label": "See the full atlas",
+        "cta_url": "/pages/atlas"
+      },
+      "blocks": {
+        "n1": { "type": "note", "settings": { "name": "Citrus", "subtitle": "bergamot · neroli · yuzu", "count": "07 formulas" } },
+        "n2": { "type": "note", "settings": { "name": "Floral", "subtitle": "rose · iris · jasmine", "count": "09 formulas" } },
+        "n3": { "type": "note", "settings": { "name": "Woody", "subtitle": "sandalwood · cedar · oud", "count": "11 formulas" } },
+        "n4": { "type": "note", "settings": { "name": "Spice", "subtitle": "cardamom · saffron · pink pepper", "count": "05 formulas" } },
+        "n5": { "type": "note", "settings": { "name": "Resin", "subtitle": "frankincense · myrrh · benzoin", "count": "04 formulas" } },
+        "n6": { "type": "note", "settings": { "name": "Smoke", "subtitle": "birch tar · leather · tobacco", "count": "03 formulas" } },
+        "n7": { "type": "note", "settings": { "name": "Green", "subtitle": "vetiver · galbanum · fig", "count": "06 formulas" } },
+        "n8": { "type": "note", "settings": { "name": "Gourmand", "subtitle": "tonka · vanilla · cacao", "count": "04 formulas" } }
+      },
+      "block_order": ["n1","n2","n3","n4","n5","n6","n7","n8"]
+    },
+    "story-2": {
+      "type": "editorial-story",
+      "settings": {
+        "eyebrow": "Process",
+        "title": "Twelve months between brief and bottle.",
+        "body": "Every formula is composed slowly — drafted, set aside, returned to. We refuse to release a fragrance until it earns its place in the index. This is the slowness that gives our work its weight.",
+        "cta_label": "Read the journal",
+        "cta_url": "/blogs/journal",
+        "reverse": true
+      }
+    },
+    "journal": {
+      "type": "journal",
+      "settings": {
+        "title": "From the journal",
+        "cta_label": "All entries",
+        "cta_url": "/blogs/journal"
+      },
+      "blocks": {
+        "e1": { "type": "entry", "settings": { "date": "08 May 2026", "title": "On the morning after rain in Pondicherry", "excerpt": "How a single afternoon by the Bay of Bengal became the brief for our spring formula." } },
+        "e2": { "type": "entry", "settings": { "date": "21 Apr 2026", "title": "A note on Kannauj — the city of attars", "excerpt": "We visited the master distillers who supply our rose otto. A field journal in three parts." } }
+      },
+      "block_order": ["e1","e2"]
+    }
+  },
+  "order": ["hero","marquee","apothecary","story-1","featured","notes","story-2","journal"]
+}

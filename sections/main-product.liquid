@@ -1,0 +1,81 @@
+<section class="product" data-section-id="{{ section.id }}">
+  <div class="product__gallery">
+    {%- for image in product.images -%}
+      <img src="{{ image | image_url: width: 1400 }}" alt="{{ image.alt | escape }}" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}">
+    {%- else -%}
+      <div style="aspect-ratio:3/4;background:var(--c-walnut);"></div>
+    {%- endfor -%}
+  </div>
+
+  <div class="product__panel">
+    <div>
+      <span class="eyebrow" style="display:block;margin-bottom:14px;">Formula No. {{ product.id | modulo: 999 | prepend: '000' | slice: -3, 3 }}</span>
+      <h1 class="product__title">{{ product.title }}</h1>
+      {%- assign sub = product.metafields.house.subtitle.value | default: product.type -%}
+      {%- if sub != blank -%}<p class="product__sub">{{ sub }}</p>{%- endif -%}
+    </div>
+
+    <div class="product__price">
+      {%- if product.compare_at_price > product.price -%}
+        <span style="text-decoration:line-through;opacity:.5;margin-right:8px;">{{ product.compare_at_price | money }}</span>
+      {%- endif -%}
+      {{ product.price | money }}
+    </div>
+
+    {%- if product.description != blank -%}
+      <div class="product__desc rte">{{ product.description }}</div>
+    {%- endif -%}
+
+    {%- assign top = product.metafields.house.notes_top.value -%}
+    {%- assign heart = product.metafields.house.notes_heart.value -%}
+    {%- assign base = product.metafields.house.notes_base.value -%}
+    {%- if top != blank or heart != blank or base != blank -%}
+      <dl class="notes-block">
+        {%- if top != blank -%}<dt>{{ 'products.product.notes_top' | t }}</dt><dd>{{ top }}</dd>{%- endif -%}
+        {%- if heart != blank -%}<dt>{{ 'products.product.notes_heart' | t }}</dt><dd>{{ heart }}</dd>{%- endif -%}
+        {%- if base != blank -%}<dt>{{ 'products.product.notes_base' | t }}</dt><dd>{{ base }}</dd>{%- endif -%}
+      </dl>
+    {%- endif -%}
+
+    <dl class="product__meta">
+      <div><dt>{{ 'products.product.perfumer' | t }}</dt><dd>{{ product.metafields.house.perfumer.value | default: 'House blend' }}</dd></div>
+      <div><dt>{{ 'products.product.concentration' | t }}</dt><dd>{{ product.metafields.house.concentration.value | default: 'Eau de Parfum' }}</dd></div>
+      <div><dt>{{ 'products.product.format' | t }}</dt><dd>{{ product.metafields.house.format.value | default: '50ml flacon' }}</dd></div>
+      <div><dt>{{ 'products.product.year' | t }}</dt><dd>{{ product.metafields.house.year.value | default: '2026' }}</dd></div>
+    </dl>
+
+    <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" data-product-form>
+      {%- if product.has_only_default_variant == false -%}
+        {%- for option in product.options_with_values -%}
+          <div>
+            <span class="eyebrow" style="display:block;margin-bottom:10px;">{{ option.name }}</span>
+            <div class="variants">
+              {%- for value in option.values -%}
+                {%- assign uid = section.id | append: option.position | append: forloop.index -%}
+                <input type="radio" id="opt-{{ uid }}" name="options[{{ option.name }}]" value="{{ value | escape }}" {% if option.selected_value == value %}checked{% endif %}>
+                <label for="opt-{{ uid }}">{{ value }}</label>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+
+      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" data-variant-id>
+
+      <div class="product__actions">
+        <div class="qty">
+          <button type="button" data-qty-step="-1" aria-label="Decrease">−</button>
+          <input type="number" name="quantity" value="1" min="1" data-qty>
+          <button type="button" data-qty-step="1" aria-label="Increase">+</button>
+        </div>
+        <button type="submit" class="btn btn--solid btn--full" {% unless product.available %}disabled{% endunless %}>
+          {%- if product.available -%}{{ 'products.product.add_to_cart' | t }} — {{ product.price | money }}{%- else -%}{{ 'products.product.sold_out' | t }}{%- endif -%}
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Product", "settings": [] }
+{% endschema %}

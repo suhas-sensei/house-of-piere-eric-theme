@@ -1,0 +1,28 @@
+<section class="newsletter" data-section-id="{{ section.id }}">
+  <div>
+    <h2>{{ section.settings.title }}</h2>
+    <p class="small">{{ section.settings.subtitle }}</p>
+  </div>
+  <div>
+    {% form 'customer' %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <input type="hidden" name="contact[accepts_marketing]" value="true">
+      <input type="email" name="contact[email]" placeholder="{{ 'general.newsletter.placeholder' | t }}" required aria-label="Email">
+      <button type="submit">{{ 'general.newsletter.submit' | t }} →</button>
+      {%- if form.posted_successfully? -%}
+        <p class="small" style="grid-column:1/-1;">{{ 'general.newsletter.success' | t }}</p>
+      {%- endif -%}
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "Slow letters from the house." },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Quarterly dispatches on what we are distilling, what we are reading, and what we are about to release. No noise." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

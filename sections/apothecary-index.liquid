@@ -1,0 +1,73 @@
+<section class="apothecary" data-section-id="{{ section.id }}">
+  <header class="apothecary__head">
+    <h2 class="apothecary__title">{{ section.settings.title }}</h2>
+    <p class="apothecary__intro">{{ section.settings.intro }}</p>
+  </header>
+
+  {%- assign collection_handle = section.settings.collection -%}
+  {%- assign source = collections[collection_handle] -%}
+  {%- if source.products.size > 0 -%}
+    {%- for product in source.products limit: section.settings.limit -%}
+      <a class="index-row" href="{{ product.url }}">
+        <span class="index-row__num">{{ forloop.index | prepend: '00' | slice: -3, 3 }}</span>
+        <span class="index-row__name">{{ product.title }}</span>
+        <span class="index-row__sub">{{ product.metafields.house.subtitle.value | default: product.type }}</span>
+        <span class="index-row__notes">{{ product.metafields.house.notes_short.value | default: product.tags | join: ' · ' | truncate: 60 }}</span>
+        <span class="index-row__price">{{ product.price | money }}</span>
+        <span class="index-row__media">
+          {%- if product.featured_image -%}
+            <img src="{{ product.featured_image | image_url: width: 600 }}" alt="" loading="lazy">
+          {%- endif -%}
+        </span>
+      </a>
+    {%- endfor -%}
+  {%- else -%}
+    {%- for block in section.blocks -%}
+      <a class="index-row" href="{{ block.settings.url | default: '#' }}">
+        <span class="index-row__num">{{ forloop.index | prepend: '00' | slice: -3, 3 }}</span>
+        <span class="index-row__name">{{ block.settings.name }}</span>
+        <span class="index-row__sub">{{ block.settings.subtitle }}</span>
+        <span class="index-row__notes">{{ block.settings.notes }}</span>
+        <span class="index-row__price">{{ block.settings.price }}</span>
+        <span class="index-row__media">
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="" loading="lazy">
+          {%- endif -%}
+        </span>
+      </a>
+    {%- endfor -%}
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Apothecary index",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "The Index" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Each composition catalogued by formula number. Hover to look closer." },
+    { "type": "collection", "id": "collection", "label": "Source collection" },
+    { "type": "range", "id": "limit", "label": "Max rows", "min": 4, "max": 24, "step": 1, "default": 8 }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Endless White" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Eau de Parfum" },
+        { "type": "text", "id": "notes", "label": "Notes", "default": "Petitgrain · Neroli · Linen" },
+        { "type": "text", "id": "price", "label": "Price", "default": "₹ 8,400" },
+        { "type": "image_picker", "id": "image", "label": "Hover image" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Apothecary index",
+      "blocks": [{"type":"row"},{"type":"row"},{"type":"row"},{"type":"row"},{"type":"row"},{"type":"row"}]
+    }
+  ]
+}
+{% endschema %}

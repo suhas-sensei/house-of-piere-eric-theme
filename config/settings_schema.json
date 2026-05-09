@@ -1,0 +1,37 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Piere Eric — Editorial Apothecary",
+    "theme_version": "0.1.0",
+    "theme_author": "House of Piere Eric",
+    "theme_documentation_url": "https://shopify.dev",
+    "theme_support_url": "https://shopify.dev"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "text",
+        "id": "brand_wordmark",
+        "label": "Wordmark",
+        "default": "House of Piere Eric"
+      },
+      {
+        "type": "text",
+        "id": "brand_short",
+        "label": "Short mark",
+        "default": "PE"
+      }
+    ]
+  },
+  {
+    "name": "Palette",
+    "settings": [
+      { "type": "color", "id": "color_bg", "label": "Background (bone)", "default": "#F1EBDF" },
+      { "type": "color", "id": "color_ink", "label": "Ink (foreground)", "default": "#191512" },
+      { "type": "color", "id": "color_walnut", "label": "Walnut (accent)", "default": "#6B3F1F" },
+      { "type": "color", "id": "color_sand", "label": "Sand (subtle)", "default": "#C9B79C" },
+      { "type": "color", "id": "color_rule", "label": "Hairline rule", "default": "#191512" }
+    ]
+  }
+]

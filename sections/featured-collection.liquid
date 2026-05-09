@@ -1,0 +1,71 @@
+<section class="featured-collection" data-section-id="{{ section.id }}">
+  <header class="collection-head">
+    <div>
+      <span class="eyebrow" style="display:block;margin-bottom:14px;">{{ section.settings.eyebrow }}</span>
+      <h2>{{ section.settings.title }}</h2>
+    </div>
+    <p>{{ section.settings.intro }}</p>
+  </header>
+
+  {%- assign source = collections[section.settings.collection] -%}
+  <div class="products{% if section.settings.layout == 'two' %} products--two{% endif %}">
+    {%- if source.products.size > 0 -%}
+      {%- for product in source.products limit: section.settings.limit -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    {%- else -%}
+      {%- for block in section.blocks -%}
+        <article class="card">
+          <a href="{{ block.settings.url | default: '#' }}" class="card__media">
+            {%- if block.settings.image != blank -%}
+              <img class="card__media-1" src="{{ block.settings.image | image_url: width: 900 }}" alt="" loading="lazy">
+            {%- endif -%}
+            {%- if block.settings.image_hover != blank -%}
+              <img class="card__media-2" src="{{ block.settings.image_hover | image_url: width: 900 }}" alt="" loading="lazy">
+            {%- endif -%}
+            {%- if block.settings.badge != blank -%}<span class="badge">{{ block.settings.badge }}</span>{%- endif -%}
+          </a>
+          <div class="card__head">
+            <h3 class="card__name">{{ block.settings.name }}</h3>
+            <span class="card__price">{{ block.settings.price }}</span>
+          </div>
+          <p class="card__notes">{{ block.settings.notes }}</p>
+          <div class="card__cta"><a class="ulink eyebrow" href="{{ block.settings.url | default: '#' }}">View formula →</a></div>
+        </article>
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured collection",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Spring composition" },
+    { "type": "text", "id": "title", "label": "Title", "default": "New formulas" },
+    { "type": "textarea", "id": "intro", "label": "Intro", "default": "Three new entries to the index — each composed in small batches and signed by the perfumer." },
+    { "type": "collection", "id": "collection", "label": "Source collection" },
+    { "type": "select", "id": "layout", "label": "Layout", "default": "three", "options": [{"value":"three","label":"Three across"},{"value":"two","label":"Two across"}] },
+    { "type": "range", "id": "limit", "label": "Max products", "min": 2, "max": 9, "step": 1, "default": 3 }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "image_picker", "id": "image_hover", "label": "Hover image" },
+        { "type": "text", "id": "badge", "label": "Badge", "default": "New" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Endless White" },
+        { "type": "text", "id": "notes", "label": "Notes", "default": "petitgrain · neroli · sun-warmed linen" },
+        { "type": "text", "id": "price", "label": "Price", "default": "₹ 8,400" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    { "name": "Featured collection", "blocks": [{"type":"card"},{"type":"card"},{"type":"card"}] }
+  ]
+}
+{% endschema %}

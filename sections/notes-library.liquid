@@ -1,0 +1,55 @@
+<section class="notes" data-section-id="{{ section.id }}">
+  <header class="notes__head">
+    <h2>{{ section.settings.title }}</h2>
+    <a class="ulink eyebrow" href="{{ section.settings.cta_url | default: '#' }}">{{ section.settings.cta_label }} →</a>
+  </header>
+  <div class="notes__grid">
+    {%- for block in section.blocks -%}
+      <a class="note" href="{{ block.settings.url | default: '#' }}">
+        <span class="note__num">{{ forloop.index | prepend: '00' | slice: -3, 3 }}</span>
+        <h3 class="note__name">{{ block.settings.name }}</h3>
+        <p class="note__sub">{{ block.settings.subtitle }}</p>
+        <span class="note__count">{{ block.settings.count }}</span>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Notes library",
+  "max_blocks": 16,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Title", "default": "By note" },
+    { "type": "text", "id": "cta_label", "label": "CTA label", "default": "See the full atlas" },
+    { "type": "url", "id": "cta_url", "label": "CTA url" }
+  ],
+  "blocks": [
+    {
+      "type": "note",
+      "name": "Note",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Name", "default": "Citrus" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "bergamot, neroli, yuzu" },
+        { "type": "text", "id": "count", "label": "Count", "default": "07 formulas" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Notes library",
+      "blocks": [
+        {"type":"note","settings":{"name":"Citrus","subtitle":"bergamot · neroli · yuzu","count":"07 formulas"}},
+        {"type":"note","settings":{"name":"Floral","subtitle":"rose · iris · jasmine","count":"09 formulas"}},
+        {"type":"note","settings":{"name":"Woody","subtitle":"sandalwood · cedar · oud","count":"11 formulas"}},
+        {"type":"note","settings":{"name":"Spice","subtitle":"cardamom · saffron · pink pepper","count":"05 formulas"}},
+        {"type":"note","settings":{"name":"Resin","subtitle":"frankincense · myrrh · benzoin","count":"04 formulas"}},
+        {"type":"note","settings":{"name":"Smoke","subtitle":"birch tar · leather · tobacco","count":"03 formulas"}},
+        {"type":"note","settings":{"name":"Green","subtitle":"vetiver · galbanum · fig","count":"06 formulas"}},
+        {"type":"note","settings":{"name":"Gourmand","subtitle":"tonka · vanilla · cacao","count":"04 formulas"}}
+      ]
+    }
+  ]
+}
+{% endschema %}
