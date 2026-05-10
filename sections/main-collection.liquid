@@ -11,7 +11,7 @@
     {%- if collection.products.size > 0 -%}
       {%- paginate collection.products by 12 -%}
         {%- for product in collection.products -%}
-          {% render 'product-card', product: product %}
+          {% render 'product-card', product: product, card_index: forloop.index0 %}
         {%- endfor -%}
         {%- if paginate.pages > 1 -%}
           <div style="grid-column:1/-1;display:flex;justify-content:center;padding:60px var(--gutter);border-bottom:var(--rule);gap:24px;">

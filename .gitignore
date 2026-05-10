@@ -1,6 +1,68 @@
+# OS
 .DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Editors / IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# Claude / AI tooling
+.claude/
+.aider*
+.cursor/
+
+# Shopify CLI
 .shopify/
+.shopifyignore
+.theme-check.yml.local
+
+# Logs & debug
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+
+# Env / secrets
 .env
 .env.*
+!.env.example
+*.pem
+*.key
+
+# Dependency dirs
 node_modules/
+bower_components/
+jspm_packages/
+vendor/
+
+# Build / cache
+dist/
+build/
+.tmp/
+.cache/
+.parcel-cache/
+.next/
+.turbo/
+.eslintcache
+.stylelintcache
+
+# Coverage / test
+coverage/
+.nyc_output/
+
+# Misc
+*.bak
+*.orig
+*.tmp

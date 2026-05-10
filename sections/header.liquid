@@ -2,12 +2,12 @@
   <div class="site-header__row">
     <nav class="site-header__nav" aria-label="Primary">
       {%- for link in linklists[section.settings.menu].links -%}
-        <a href="{{ link.url }}">{{ link.title }}</a>
+        <a href="{{ link.url }}" data-text="{{ link.title | escape }}">{{ link.title }}</a>
       {%- else -%}
-        <a href="/collections/all">Fragrances</a>
-        <a href="/collections/discovery">Discovery</a>
-        <a href="/pages/journal">Journal</a>
-        <a href="/pages/about">House</a>
+        <a href="/collections/all" data-text="Fragrances">Fragrances</a>
+        <a href="/collections/discovery" data-text="Discovery">Discovery</a>
+        <a href="/pages/journal" data-text="Journal">Journal</a>
+        <a href="/pages/about" data-text="House">House</a>
       {%- endfor -%}
     </nav>
 
@@ -19,13 +19,13 @@
 
     <div class="site-header__utility">
       <button data-drawer-toggle="SearchDrawer" aria-controls="SearchDrawer">
-        {% render 'icons', icon: 'search' %}<span class="label">Search</span>
+        {% render 'icons', icon: 'search' %}<span class="label" data-text="Search">Search</span>
       </button>
       <a href="{{ routes.account_url }}">
-        {% render 'icons', icon: 'account' %}<span class="label">Account</span>
+        {% render 'icons', icon: 'account' %}<span class="label" data-text="Account">Account</span>
       </a>
       <button data-drawer-toggle="CartDrawer" aria-controls="CartDrawer">
-        {% render 'icons', icon: 'bag' %}<span class="label">Bag</span>&nbsp;<span data-cart-count>({{ cart.item_count }})</span>
+        {% render 'icons', icon: 'bag' %}<span class="label" data-text="Bag">Bag</span>&nbsp;<span data-cart-count data-text="({{ cart.item_count }})">({{ cart.item_count }})</span>
       </button>
     </div>
   </div>

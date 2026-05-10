@@ -11,26 +11,38 @@
   <div class="products{% if section.settings.layout == 'two' %} products--two{% endif %}">
     {%- if source.products.size > 0 -%}
       {%- for product in source.products limit: section.settings.limit -%}
-        {% render 'product-card', product: product %}
+        {% render 'product-card', product: product, card_index: forloop.index0 %}
       {%- endfor -%}
     {%- else -%}
       {%- for block in section.blocks -%}
+        {%- assign random_image_index = forloop.index0 | modulo: 2 -%}
+        {%- case random_image_index -%}
+          {%- when 0 -%}
+            {%- assign random_product_image = 'https://www.pngkey.com/png/detail/15-150340_perfume-perfume-bottle-clipart-transparent.png' -%}
+          {%- else -%}
+            {%- assign random_product_image = 'https://www.pngkey.com/png/detail/325-3258454_transparent-perfume-bottle-png.png' -%}
+        {%- endcase -%}
         <article class="card">
           <a href="{{ block.settings.url | default: '#' }}" class="card__media">
             {%- if block.settings.image != blank -%}
               <img class="card__media-1" src="{{ block.settings.image | image_url: width: 900 }}" alt="" loading="lazy">
-            {%- endif -%}
-            {%- if block.settings.image_hover != blank -%}
-              <img class="card__media-2" src="{{ block.settings.image_hover | image_url: width: 900 }}" alt="" loading="lazy">
+            {%- else -%}
+              <img class="card__media-1 card__media-random" src="{{ random_product_image }}" alt="" loading="lazy">
             {%- endif -%}
             {%- if block.settings.badge != blank -%}<span class="badge">{{ block.settings.badge }}</span>{%- endif -%}
           </a>
-          <div class="card__head">
-            <h3 class="card__name">{{ block.settings.name }}</h3>
-            <span class="card__price">{{ block.settings.price }}</span>
+          <div class="card__details">
+            <div class="card__head">
+              <h3 class="card__name">{{ block.settings.name }}</h3>
+              <span class="card__type">Eau de Parfum</span>
+              <span class="card__price">{{ block.settings.price }}</span>
+            </div>
+            <p class="card__notes">{{ block.settings.notes }}</p>
+            <div class="card__cta"><a class="ulink eyebrow" href="{{ block.settings.url | default: '#' }}">View formula →</a></div>
+            <a class="card__plus" href="{{ block.settings.url | default: '#' }}" aria-label="View {{ block.settings.name | escape }}">
+              <span aria-hidden="true"></span>
+            </a>
           </div>
-          <p class="card__notes">{{ block.settings.notes }}</p>
-          <div class="card__cta"><a class="ulink eyebrow" href="{{ block.settings.url | default: '#' }}">View formula →</a></div>
         </article>
       {%- endfor -%}
     {%- endif -%}

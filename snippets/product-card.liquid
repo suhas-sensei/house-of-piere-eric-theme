@@ -1,32 +1,42 @@
 {%- comment -%}
   Renders a product card. Accepts: product
 {%- endcomment -%}
+{%- assign random_image_index = card_index | default: product.id | modulo: 2 -%}
+{%- case random_image_index -%}
+  {%- when 0 -%}
+    {%- assign random_product_image = 'https://www.pngkey.com/png/detail/15-150340_perfume-perfume-bottle-clipart-transparent.png' -%}
+  {%- else -%}
+    {%- assign random_product_image = 'https://www.pngkey.com/png/detail/325-3258454_transparent-perfume-bottle-png.png' -%}
+{%- endcase -%}
 <article class="card">
   <a href="{{ product.url }}" class="card__media" aria-label="{{ product.title | escape }}">
-    {%- if product.featured_image -%}
-      <img class="card__media-1" src="{{ product.featured_image | image_url: width: 900 }}" alt="{{ product.featured_image.alt | escape }}" loading="lazy">
-    {%- endif -%}
-    {%- if product.images.size > 1 -%}
-      <img class="card__media-2" src="{{ product.images[1] | image_url: width: 900 }}" alt="" loading="lazy">
-    {%- endif -%}
+    <img class="card__media-1 card__media-random" src="{{ random_product_image }}" alt="{{ product.title | escape }}" loading="lazy">
     {%- if product.tags contains 'new' -%}
       <span class="badge">New</span>
     {%- elsif product.compare_at_price > product.price -%}
       <span class="badge">Reduced</span>
     {%- endif -%}
   </a>
-  <div class="card__head">
-    <h3 class="card__name"><a href="{{ product.url }}">{{ product.title }}</a></h3>
-    <span class="card__price">
-      {%- if product.compare_at_price > product.price -%}
-        <span style="text-decoration:line-through;opacity:.5;margin-right:6px;">{{ product.compare_at_price | money }}</span>
-      {%- endif -%}
-      {{ product.price | money }}
-    </span>
-  </div>
   {%- assign notes = product.metafields.house.notes_short.value | default: product.tags | join: ' · ' -%}
-  {%- if notes != blank -%}
-    <p class="card__notes">{{ notes | truncate: 70 }}</p>
-  {%- endif -%}
-  <div class="card__cta"><a class="ulink eyebrow" href="{{ product.url }}">View formula →</a></div>
+  <div class="card__details">
+    <div class="card__head">
+      <h3 class="card__name"><a href="{{ product.url }}">{{ product.title }}</a></h3>
+      {%- if product.type != blank -%}
+        <span class="card__type">{{ product.type }}</span>
+      {%- endif -%}
+      <span class="card__price">
+        {%- if product.compare_at_price > product.price -%}
+          <span style="text-decoration:line-through;opacity:.5;margin-right:6px;">{{ product.compare_at_price | money }}</span>
+        {%- endif -%}
+        {{ product.price | money }}
+      </span>
+    </div>
+    {%- if notes != blank -%}
+      <p class="card__notes">{{ notes | truncate: 70 }}</p>
+    {%- endif -%}
+    <div class="card__cta"><a class="ulink eyebrow" href="{{ product.url }}">View formula →</a></div>
+    <a class="card__plus" href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
 </article>
